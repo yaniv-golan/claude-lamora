@@ -38,9 +38,10 @@ jobs:
           version="$(cat VERSION)"
           # Plugin-only archive (what users install from the marketplace).
           zip -r "hameshabetz-${version}.zip" hameshabetz -x '*/__pycache__/*'
-          # Full marketplace archive.
+          # Full marketplace archive (all universal-repo formats).
           zip -r "claude-lamora-${version}.zip" \
-            .claude-plugin hameshabetz README.md LICENSE CHANGELOG.md VERSION VERSIONING.md \
+            .claude-plugin .cursor-plugin .agents hameshabetz \
+            README.md LICENSE CHANGELOG.md VERSION VERSIONING.md \
             -x '*/__pycache__/*'
           ls -la ./*.zip
 

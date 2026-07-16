@@ -2,7 +2,7 @@
   "name": "claude-lamora",
   "owner": {
     "name": "Yaniv Golan",
-    "email": "yaniv@lool.vc"
+    "email": "yaniv@golan.name"
   },
   "metadata": {
     "description": "המשבץ — שיבוץ שכבה לכיתות מאוזנות מתוך טופס בחירת חברים: פיוס שמות בעברית, אילוצים (לא-עם, עוגנים, שילוב, איזון גנים ומגדר), אופטימיזציית CP-SAT, לוח גרירה בעברית ואקסל סופי.",
@@ -17,7 +17,7 @@
       "description": "המשבץ — שיבוץ שכבה לכיתות מאוזנות מתוך טופס בחירת חברים: פיוס שמות בעברית, אילוצים (לא-עם, עוגנים, שילוב, איזון גנים ומגדר), אופטימיזציית CP-SAT, לוח גרירה בעברית ואקסל סופי.",
       "author": {
         "name": "Yaniv Golan",
-        "email": "yaniv@lool.vc"
+        "email": "yaniv@golan.name"
       },
       "category": "education",
       "tags": [

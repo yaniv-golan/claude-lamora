@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>התקנת המשבץ ב-Claude</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Heebo', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #f9f5f1; color: #3d3929; }
+.card { text-align: center; padding: 3rem 2rem; max-width: 480px; }
+h1 { font-size: 1.5rem; margin-bottom: 0.75rem; }
+p { color: #6b5e4f; line-height: 1.7; }
+code { background: #efe9e2; padding: 0.1rem 0.4rem; border-radius: 4px; direction: ltr; display: inline-block; }
+a { color: #d97757; text-decoration: none; font-weight: 600; }
+a:hover { text-decoration: underline; }
+.fallback { display: none; }
+.muted { font-size: 0.9rem; margin-top: 1.5rem; }
+</style>
+</head>
+<body>
+<div class="card">
+<h1>מתקינים את המשבץ 👩‍🏫</h1>
+<p id="status">פותח/ת את Claude…</p>
+<div id="fallback" class="fallback">
+<p>Claude לא נפתח אוטומטית. אפשר:</p>
+<p><a href="claude://claude.ai/customize/plugins/new?marketplace=https://github.com/yaniv-golan/claude-lamora&plugin=hameshabetz">לנסות שוב</a></p>
+<p>או להתקין ידנית: נכנסים ל-<a href="https://claude.ai">claude.ai</a>, לוחצים <strong>Customize</strong>, ואז <strong>Plugins</strong> → <strong>Add marketplace</strong>, ומקלידים <code>yaniv-golan/claude-lamora</code>.</p>
+</div>
+<p class="muted"><a href="https://github.com/yaniv-golan/claude-lamora">חזרה לעמוד של קלוד-למורה ב-GitHub</a></p>
+</div>
+<script>
+var deepLink = "claude://claude.ai/customize/plugins/new?marketplace=https://github.com/yaniv-golan/claude-lamora&plugin=hameshabetz";
+var repo = "https://github.com/yaniv-golan/claude-lamora";
+
+// Try opening the deep link (opens the Claude desktop app if installed).
+window.location = deepLink;
+
+// If this page is still visible after 5s, the deep link likely didn't work.
+setTimeout(function() {
+  if (!document.hidden) {
+    document.getElementById("status").textContent = "";
+    document.getElementById("fallback").style.display = "block";
+  }
+}, 5000);
+
+// If the user returns to this tab (Claude opened, then they switched back), go to the repo.
+document.addEventListener("visibilitychange", function() {
+  if (!document.hidden) {
+    setTimeout(function() { window.location = repo; }, 500);
+  }
+});
+</script>
+</body>
+</html>

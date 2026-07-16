@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+### Packaging
+- **Universal repo**: the single canonical skill now fans out to every supported
+  distribution format. Added a Cursor plugin manifest (`.cursor-plugin/plugin.json`)
+  and the Agent Skills standard directory (`.agents/skills/hameshabetz`, a symlink to
+  the canonical skill), alongside the existing Claude plugin and marketplace.
+- README now documents installation on Claude Code, Cursor, Codex CLI, `npx skills add`,
+  and manual Agent Skills targets, in addition to the Claude.ai/Cowork educator flow.
+- `tools/validate.py` now also checks the Cursor manifest, the `.agents/skills/` copy,
+  and version consistency across formats; release archives bundle the new formats.
+- **One-click install**: added a hosted "Install in Claude Desktop" page
+  (`static/install-claude-desktop.html`) deployed via GitHub Pages
+  (`.github/workflows/deploy-pages.yml`), linked from the README with a button.
+
 ## 1.2.0 — 2026-07-15
 
 First public release of **המשבץ (hameshabetz)** in the **קלוד-למורה (claude-lamora)**

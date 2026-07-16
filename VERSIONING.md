@@ -17,7 +17,9 @@ The version appears in these files (all managed by the bump script):
 5. `.cursor-plugin/plugin.json` — `"version"` field (if Cursor format enabled)
 6. `hameshabetz/skills/*/SKILL.md` — `metadata.version` in YAML frontmatter
 7. `hameshabetz/skills/*/VERSION` — copied from root (if present)
-8. `.agents/skills/` copies (if they exist)
+8. `.agents/skills/` copies (if they exist) — in this repo `.agents/skills/hameshabetz`
+   is a **symlink** to the canonical skill, so it tracks the version automatically and
+   the bump script does not need to touch it
 
 The bump script updates whichever of these are present and skips the optional
 ones that are not enabled. Run `python3 tools/validate.py` (also enforced in CI)

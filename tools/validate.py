@@ -97,6 +97,41 @@ def validate_plugin(entry: dict, marketplace_dir: Path) -> None:
         validate_skill(d, name)
 
 
+def validate_cursor_plugin(canonical_version: str | None) -> None:
+    """Validate the optional Cursor plugin manifest (universal-repo format)."""
+    path = ROOT / ".cursor-plugin" / "plugin.json"
+    if not path.exists():
+        return  # Cursor format not enabled — nothing to check.
+    manifest = load_json(path)
+    if manifest is None:
+        return
+    if not manifest.get("name"):
+        err(".cursor-plugin/plugin.json: missing 'name'")
+    if canonical_version and manifest.get("version") != canonical_version:
+        err(
+            f".cursor-plugin/plugin.json: version '{manifest.get('version')}' "
+            f"does not match VERSION ({canonical_version})"
+        )
+    skills_rel = manifest.get("skills")
+    if not skills_rel:
+        err(".cursor-plugin/plugin.json: missing 'skills' path")
+    elif not (ROOT / skills_rel).resolve().is_dir():
+        err(f".cursor-plugin/plugin.json: skills directory not found: {skills_rel}")
+
+
+def validate_agents_skills() -> None:
+    """Validate the optional .agents/skills/ copies (Agent Skills standard)."""
+    agents_skills = ROOT / ".agents" / "skills"
+    if not agents_skills.is_dir():
+        return  # Agent Skills format not enabled — nothing to check.
+    entries = [d for d in agents_skills.iterdir() if d.is_dir() or d.is_symlink()]
+    if not entries:
+        err(".agents/skills/ exists but contains no skills")
+    for entry in sorted(entries):
+        if not (entry / "SKILL.md").exists():
+            err(f".agents/skills/{entry.name}: does not resolve to a skill (missing SKILL.md)")
+
+
 def main() -> None:
     marketplace_path = ROOT / ".claude-plugin" / "marketplace.json"
     mk = load_json(marketplace_path)
@@ -114,6 +149,11 @@ def main() -> None:
 
     for entry in plugins:
         validate_plugin(entry, ROOT)
+
+    version_file = ROOT / "VERSION"
+    canonical_version = version_file.read_text(encoding="utf-8").strip() if version_file.exists() else None
+    validate_cursor_plugin(canonical_version)
+    validate_agents_skills()
 
     if errors:
         print(f"\n{len(errors)} problem(s) found.", file=sys.stderr)

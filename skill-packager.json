@@ -5,7 +5,7 @@
   "description": "Claude plugin marketplace for Israeli educators. First skill: hameshabetz (המשבץ) — sociometric class placement with Hebrew name reconciliation, CP-SAT optimization, an RTL drag-and-drop review board, and Excel rosters.",
   "author": {
     "name": "Yaniv Golan",
-    "email": "yaniv@lool.vc"
+    "email": "yaniv@golan.name"
   },
   "license": "MIT",
   "repository": "https://github.com/yaniv-golan/claude-lamora",
@@ -13,8 +13,8 @@
   "formats": {
     "claude-plugin": true,
     "claude-marketplace": true,
-    "cursor-plugin": false,
-    "cursor-marketplace": false,
-    "agents-standard": false
+    "cursor-plugin": true,
+    "cursor-marketplace": true,
+    "agents-standard": true
   }
 }

@@ -42,6 +42,16 @@
 
 עושים את זה **פעם אחת בלבד**. אחרי זה המשבץ תמיד שם.
 
+> **יש לך את אפליקציית Claude למחשב?** אפשר להתקין בלחיצה אחת:
+>
+> <div align="center" dir="ltr">
+>
+> [![Install in Claude Desktop](https://img.shields.io/badge/Install_in_Claude_Desktop-D97757?style=for-the-badge&logo=claude&logoColor=white)](https://yaniv-golan.github.io/claude-lamora/static/install-claude-desktop.html)
+>
+> </div>
+>
+> עובד/ת בדפדפן ב-claude.ai? המשך/י לפי הצעדים למטה — זה פשוט וזהה.
+
 1. נכנסים ל-**claude.ai** ומתחברים.
 2. בתפריט הצד לוחצים על **Customize** (התאמה אישית).
    > עובד/ת דרך **Cowork**? פותחים קודם את לשונית **Cowork**, ואז **Customize** — משם
@@ -166,6 +176,10 @@ external services.
 
 ### Install (one time)
 
+[![Install in Claude Desktop](https://img.shields.io/badge/Install_in_Claude_Desktop-D97757?style=for-the-badge&logo=claude&logoColor=white)](https://yaniv-golan.github.io/claude-lamora/static/install-claude-desktop.html)
+
+*One click if you have the Claude desktop app — otherwise follow the steps below.*
+
 No downloads. Everything runs inside Claude, on any paid plan (Pro / Max / Team /
 Enterprise), from the browser at **claude.ai**, the desktop app, or mobile.
 
@@ -182,12 +196,52 @@ Then start a new conversation, attach your friend-choice spreadsheet, and write
 (in Hebrew or English): *"help me split this grade into balanced classes."* Claude
 invokes the skill automatically.
 
+### Install on other platforms (developers)
+
+`hameshabetz` is packaged to the open [Agent Skills](https://agentskills.io) standard, so
+it also installs on Claude Code, Cursor, Codex CLI, Windsurf, and any compatible agent.
+
+**Claude Code (CLI)** — from a session:
+
+```
+/plugin marketplace add yaniv-golan/claude-lamora
+/plugin install hameshabetz@claude-lamora
+```
+
+**Any agent (npx)** — Claude Code, Cursor, Copilot, Windsurf, and [40+ others](https://github.com/vercel-labs/skills):
+
+```bash
+npx skills add yaniv-golan/claude-lamora
+```
+
+**Cursor** — open **Cursor Settings** and paste `https://github.com/yaniv-golan/claude-lamora`
+into the **Search or Paste Link** box.
+
+**Codex CLI** — `$skill-installer https://github.com/yaniv-golan/claude-lamora`, or download the
+`hameshabetz-*.zip` asset from the [latest release](https://github.com/yaniv-golan/claude-lamora/releases/latest)
+and extract the `hameshabetz/` folder into `~/.codex/skills/`.
+
+**Manual (Windsurf, OpenClaw, etc.)** — extract the same `hameshabetz/` folder into your
+project's `.agents/skills/` or your user-level `~/.agents/skills/`.
+
+> The skill runs Python locally and uses Google OR-Tools (`ortools`) for the full CP-SAT solve.
+> Where `ortools` can't be installed (e.g. ChatGPT's sandbox), it falls back to a built-in
+> offline engine, so it still works — just with a simpler optimizer.
+
 ### For maintainers
 
-- `python3 tools/validate.py` — validate the marketplace, plugin manifest, and skills.
+- `python3 tools/validate.py` — validate the marketplace, the Claude and Cursor plugin
+  manifests, the `.agents/skills/` copy, the skills, and version consistency.
 - `python3 tools/bump-version.py . X.Y.Z` — bump the version everywhere (see
   [VERSIONING.md](VERSIONING.md)).
 - CI validates every push/PR; pushing a `vX.Y.Z` tag publishes a GitHub Release.
+
+This repo is a **universal package**: one canonical skill under `hameshabetz/skills/`
+fans out to a Claude plugin (`hameshabetz/.claude-plugin/`), a Claude marketplace
+(`.claude-plugin/`), a Cursor plugin (`.cursor-plugin/`), and the Agent Skills standard
+(`.agents/skills/`). The `.agents/skills/hameshabetz` entry is a symlink back to the
+canonical skill, so there is a single source of truth. *(On Windows, if git materializes
+the symlink as a text file, replace it with a copy of the skill directory.)*
 
 ### License
 
