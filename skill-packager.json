@@ -1,6 +1,6 @@
 {
   "name": "claude-lamora",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "displayName": "קלוד-למורה",
   "description": "Claude plugin marketplace for Israeli educators. First skill: hameshabetz (המשבץ) — sociometric class placement with Hebrew name reconciliation, CP-SAT optimization, an RTL drag-and-drop review board, and Excel rosters.",
   "author": {

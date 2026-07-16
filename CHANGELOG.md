@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.3.0 — 2026-07-16
 
 ### Packaging
 - **Universal repo**: the single canonical skill now fans out to every supported
