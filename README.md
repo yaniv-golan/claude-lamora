@@ -104,10 +104,11 @@
 (החינמי או Plus) האפשרות הזאת עדיין לא קיימת — ואז הדרך הפשוטה לכולם היא פשוט לעבוד
 עם Claude, כמו למעלה.
 
-יש חשבון מתאים? מורידים את הקובץ **hameshabetz-skill.zip** מ[עמוד
-ההורדות](https://github.com/yaniv-golan/claude-lamora/releases/latest), ואז בתוך
-ChatGPT נכנסים ל-**Skills**, בוחרים **Create ▸ Upload** ומעלים אותו. מכאן העבודה
-זהה לגמרי — מצרפים את קובץ האקסל, עונים על השאלות, ומקבלים לוח ואקסל.
+יש חשבון מתאים? מורידים את קובץ ה-zip של המשבץ (הקובץ ששמו מתחיל ב-`hameshabetz-skill`)
+מ[עמוד ההורדות](https://github.com/yaniv-golan/claude-lamora/releases/latest), ואז בתוך
+ChatGPT נכנסים ללשונית **Skills**, לוחצים על כפתור ה-**+** בפינה, בוחרים **Upload from
+your computer** וגוררים לשם את הקובץ. מכאן העבודה זהה לגמרי — מצרפים את קובץ האקסל,
+עונים על השאלות, ומקבלים לוח ואקסל.
 
 ---
 
@@ -238,7 +239,7 @@ and extract the `hameshabetz/` folder into `~/.codex/skills/`.
 
 **ChatGPT (Business / Enterprise / Edu / Healthcare)** — ChatGPT Skills use the same Agent
 Skills standard. Download the `hameshabetz-skill-*.zip` asset from the [latest release](https://github.com/yaniv-golan/claude-lamora/releases/latest)
-and upload it via **Skills → Create → Upload**. The code-interpreter sandbox runs the Python
+and upload it via **Skills → `+` → Upload from your computer**. The code-interpreter sandbox runs the Python
 pipeline and produces the board and Excel files. *Not available on Free / Plus / Go plans, and
 Skills don't sync between the desktop and web apps — add it on each separately.*
 
