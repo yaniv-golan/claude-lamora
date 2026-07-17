@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>קלוד-למורה · המשבץ — שיבוץ שכבה לכיתות מאוזנות</title>
+<meta name="description" content="המשבץ הופך טופס בחירת חברים לחלוקה מאוזנת לכיתות — בעברית, בלי להתקין כלום, בתוך Claude. כלי חינם למורות, מורים ויועצות בישראל.">
+<meta property="og:title" content="קלוד-למורה · המשבץ">
+<meta property="og:description" content="שיבוץ שכבה לכיתות מאוזנות מתוך טופס בחירת חברים — בעברית, בלי התקנות.">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --page:#faf6f0; --card:#ffffff; --ink:#241f1a; --body:#4f4941; --muted:#8a8177;
+    --line:#ece5db; --accent:#cc7a58; --accent-deep:#b5623f; --accent-soft:#fbeee7;
+    --good:#2f7d4f; --good-soft:#e9f4ee; --shadow:0 14px 40px rgba(60,40,25,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--page); color:var(--ink);
+    font-family:"Heebo","Assistant",ui-sans-serif,-apple-system,"Segoe UI",Arial,sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px; margin:0 auto; padding:0 20px}
+  a{color:var(--accent-deep); text-decoration:none}
+  a:hover{text-decoration:underline}
+  h1,h2,h3{line-height:1.25; letter-spacing:-.01em}
+  .accent{color:var(--accent-deep)}
+
+  /* top bar */
+  .top{display:flex; align-items:center; justify-content:space-between; padding:18px 0}
+  .brand{font-weight:800; font-size:20px}
+  .brand .em{font-size:22px}
+  .top .ghost{font-size:14px; color:var(--muted)}
+
+  /* hero */
+  .hero{text-align:center; padding:26px 0 10px}
+  .hero h1{font-size:clamp(30px,5vw,46px); font-weight:800}
+  .hero .lead{font-size:clamp(17px,2.4vw,21px); color:var(--body); max-width:660px; margin:16px auto 0}
+  .hero .note{font-size:15px; color:var(--muted); margin-top:14px}
+  .cta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:26px}
+  .btn{display:inline-flex; align-items:center; gap:9px; font-weight:700; font-size:16px;
+    padding:14px 24px; border-radius:14px; border:2px solid transparent; cursor:pointer}
+  .btn-primary{background:var(--accent); color:#fff; box-shadow:0 8px 22px rgba(204,122,88,.32)}
+  .btn-primary:hover{background:var(--accent-deep); text-decoration:none}
+  .btn-ghost{background:#fff; color:var(--ink); border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--accent); text-decoration:none}
+  .btn small{font-weight:500; color:rgba(255,255,255,.85); font-size:12.5px}
+  .btn-ghost small{color:var(--muted)}
+
+  /* demo */
+  .demo{margin:34px auto 0; max-width:760px}
+  .demo figure{background:var(--card); border:1px solid var(--line); border-radius:20px;
+    padding:14px; box-shadow:var(--shadow)}
+  .demo img{width:100%; border-radius:12px; display:block}
+  .demo figcaption{color:var(--muted); font-size:14px; text-align:center; margin-top:12px}
+
+  /* sections */
+  section{padding:48px 0}
+  .section-h{font-size:clamp(23px,3.4vw,32px); font-weight:800; text-align:center}
+  .section-sub{color:var(--body); text-align:center; max-width:640px; margin:12px auto 0}
+
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:30px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px}
+  .card .ic{font-size:26px}
+  .card h3{font-size:18px; margin:10px 0 6px}
+  .card p{color:var(--body); font-size:15px}
+
+  /* need box */
+  .need{background:var(--accent-soft); border:1px solid #f2ddd0; border-radius:18px; padding:24px 26px; margin-top:14px}
+  .need ul{list-style:none; margin-top:8px}
+  .need li{padding:8px 0 8px 0; padding-inline-start:30px; position:relative; color:var(--body)}
+  .need li::before{content:"✓"; position:absolute; inset-inline-start:0; color:var(--good); font-weight:800}
+  .need b{color:var(--ink)}
+
+  /* steps */
+  .steps{counter-reset:step; margin-top:26px}
+  .step{display:grid; grid-template-columns:auto 1fr; gap:20px; align-items:start;
+    background:var(--card); border:1px solid var(--line); border-radius:18px; padding:22px 24px; margin-bottom:18px}
+  .step .num{counter-increment:step; width:42px; height:42px; border-radius:50%;
+    background:var(--accent); color:#fff; font-weight:800; font-size:19px; display:grid; place-items:center}
+  .step .num::before{content:counter(step)}
+  .step h3{font-size:19px}
+  .step p{color:var(--body); margin-top:6px}
+  .step img{width:100%; border:1px solid var(--line); border-radius:12px; margin-top:14px; display:block}
+
+  /* copy chip */
+  .copy{display:inline-flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line);
+    border-radius:12px; padding:8px 8px 8px 14px; margin-top:12px; direction:ltr}
+  .copy code{font-family:ui-monospace,Menlo,monospace; font-size:15px; color:var(--ink)}
+  .copy button{font-family:inherit; font-weight:700; font-size:13px; color:#fff; background:var(--accent);
+    border:none; border-radius:8px; padding:7px 12px; cursor:pointer}
+  .copy button:hover{background:var(--accent-deep)}
+
+  /* privacy */
+  .privacy{background:var(--good-soft); border:1px solid #d5eadd; border-radius:18px; padding:26px 28px}
+  .privacy h2{font-size:24px}
+  .privacy p{color:#2f4a3a; margin-top:10px}
+  .privacy ul{margin:10px 0 0; padding-inline-start:22px; color:#2f4a3a}
+
+  /* faq */
+  details{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:6px 20px; margin-bottom:12px}
+  summary{font-weight:700; cursor:pointer; padding:14px 0; list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"+"; color:var(--accent); font-weight:800; margin-inline-end:12px}
+  details[open] summary::before{content:"–"}
+  details p{color:var(--body); padding:0 0 16px}
+
+  /* footer */
+  footer{border-top:1px solid var(--line); padding:30px 0 50px; text-align:center; color:var(--muted); font-size:14px}
+  footer a{color:var(--body)}
+
+  .secondary-cta{text-align:center; margin-top:20px}
+  .secondary-cta .btn{font-size:15px; padding:12px 20px}
+
+  @media(max-width:720px){
+    .cards{grid-template-columns:1fr}
+    .step{grid-template-columns:1fr; gap:10px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="em">👩‍🏫</span> קלוד־למורה</div>
+    <div class="ghost">כלי חינם למורות ולצוותי חינוך</div>
+  </div>
+</div>
+
+<header class="wrap hero">
+  <h1>שיבוץ שכבה לכיתות — <span class="accent">בשעה, לא ביומיים</span></h1>
+  <p class="lead">
+    <b>המשבץ</b> הופך את טופס בחירת החברים לחלוקה מאוזנת לכיתות: לכל ילד חבר אחד לפחות שבחר,
+    כיתות מאוזנות בגודל, בבנים־בנות ובגני המוצא — והכול בעברית, בתוך שיחה אחת.
+  </p>
+  <p class="note">אין מה להתקין במחשב. אם את/ה יודע/ת לפתוח אקסל ולשלוח הודעה — זה מספיק.</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="#install">איך מתחילים? ↓</a>
+    <a class="btn btn-ghost" href="static/install-claude-desktop.html">
+      התקנה בלחיצה <small>(למי שיש אפליקציית Claude למחשב)</small>
+    </a>
+  </div>
+
+  <div class="demo">
+    <figure>
+      <img src="images/demo-install.gif" alt="הדגמה: הוספת המשבץ ל-Claude בארבעה צעדים — Add marketplace, Sync, התקנה, ומוכן">
+      <figcaption>ככה מוסיפים את המשבץ ל-Claude — פעם אחת, בפחות מדקה.</figcaption>
+    </figure>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-h">מה זה עושה?</h2>
+    <p class="section-sub">מחליף את טקס הפתקים על הקיר בשעה של עבודה מלווה, שבסופה יש חלוקה שאפשר לעמוד מאחוריה.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="ic">🤝</div>
+        <h3>לכל ילד יש חבר</h3>
+        <p>כל תלמיד משובץ עם לפחות חבר אחד שהוא בחר. אתם רואים מיד למי יש חבר בכיתה ולמי לא.</p>
+      </div>
+      <div class="card">
+        <div class="ic">⚖️</div>
+        <h3>כיתות מאוזנות</h3>
+        <p>איזון בגודל, בבנים־בנות ובפיזור גני המוצא. ילדי שילוב מתחלקים בין הכיתות, ואפשר לקבע ילדים מראש.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🖐️</div>
+        <h3>לוח גרירה בעברית</h3>
+        <p>קובץ אחד שנפתח בכל דפדפן (גם במחשב בית־ספרי בלי אינטרנט). גוררים ילדים בין כיתות, והמערכת מאזנת סביב מה שקבעתם.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-h">מה צריך כדי להתחיל</h2>
+    <div class="need">
+      <ul>
+        <li><b>מנוי Claude בתשלום</b> — כל מנוי מתאים (Pro, Max, Team או Enterprise). Claude הוא עוזר בינה מלאכותית (בדומה ל-ChatGPT) של חברת Anthropic. כדאי לבדוק אם לבית הספר כבר יש חשבון.</li>
+        <li><b>דפדפן</b> — נכנסים ל-claude.ai ומתחברים. עובד גם באפליקציית Claude למחשב או לנייד — מומלץ לעבוד ממחשב.</li>
+        <li><b>קובץ בחירות החברים</b> — אקסל מטופס Google, או קובץ שהכנתם. לא בטוחים שהוא מסודר? זה בסדר — המשבץ ישאל אתכם מה שחסר.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2 class="section-h">התקנה — פעם אחת, דקה</h2>
+    <p class="section-sub">עושים את זה פעם אחת בלבד. אחרי זה המשבץ תמיד שם.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="num"></div>
+        <div>
+          <h3>נכנסים ל-Claude ופותחים את הפלאגינים</h3>
+          <p>ב-<a href="https://claude.ai">claude.ai</a>, בתפריט הצד לוחצים <b>Customize</b>, ואז את הלשונית <b>Plugins</b>. למעלה לוחצים <b>Add</b> ובוחרים <b>Add marketplace</b>.</p>
+          <img src="images/frame1-add-marketplace.png" alt="לשונית Plugins — פתיחת התפריט Add ובחירת Add marketplace">
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num"></div>
+        <div>
+          <h3>מדביקים את הכתובת ולוחצים Sync</h3>
+          <p>בשורת הכתובת שבחלון הקטן מדביקים את השם הבא (אפשר להעתיק כאן), ולוחצים <b>Sync</b>:</p>
+          <div class="copy"><code id="mk">yaniv-golan/claude-lamora</code>
+            <button onclick="copyMk()" id="mkbtn">העתקה</button></div>
+          <img src="images/frame2-sync.png" alt="חלון Add marketplace — הדבקת הכתובת ולחיצה על Sync">
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num"></div>
+        <div>
+          <h3>לוחצים + על כרטיס המשבץ</h3>
+          <p>ייתכן שתופיע אזהרה באדום באנגלית — זו הודעה סטנדרטית לכל תוסף, אפשר להמשיך. לוחצים על ה-<b>+</b> בכרטיס <b>המשבץ</b>.</p>
+          <img src="images/frame3-install.png" alt="כרטיס המשבץ עם כפתור הפלוס להתקנה">
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num"></div>
+        <div>
+          <h3>זהו — מותקן 🎉</h3>
+          <p>מופיעה הודעת אישור. עכשיו פותחים שיחה חדשה, מצרפים את קובץ האקסל וכותבים בעברית: <i>"תעזור לי לשבץ את הכיתות"</i>. המשבץ יזהה לבד וילווה אתכם צעד־אחר־צעד.</p>
+          <img src="images/frame4-installed.png" alt="הודעת אישור: המשבץ הותקן ומוכן לשימוש">
+        </div>
+      </div>
+    </div>
+
+    <div class="secondary-cta">
+      <a class="btn btn-ghost" href="static/install-claude-desktop.html">יש לך את אפליקציית Claude למחשב? התקנה בלחיצה אחת →</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="privacy">
+      <h2>פרטיות — חשוב 🔒</h2>
+      <p>המידע על הילדים נמצא רק בשני מקומות: אצלכם במחשב, או בשיחה ב-Claude (השרתים של Anthropic) — בדיוק כמו כל קובץ שמצרפים לצ'אט. למשבץ עצמו אין שרת משלו, והוא לא שומר שמות או פרטים של ילדים בשום מקום.</p>
+      <ul>
+        <li>אין חיפוש שמות באינטרנט ואין העברה לשום שירות חיצוני אחר.</li>
+        <li>לוח הסקירה וקובצי האקסל נשמרים אצלכם במחשב.</li>
+        <li>הקבצים הסופיים מכילים שמות של ילדים — לשמור עליהם כמו על כל מסמך רגיש בבית הספר.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-h">שאלות נפוצות</h2>
+    <div style="margin-top:24px">
+      <details><summary>אני לא יודע/ת לתכנת. זה בשבילי?</summary>
+        <p>בהחלט. אין שום דבר להתקין במחשב ואין קוד לכתוב. הכול קורה בתוך שיחה עם Claude, בעברית, כשהמערכת שואלת אתכם שאלות פשוטות ואתם עונים במילים שלכם.</p></details>
+      <details><summary>כמה זה עולה?</summary>
+        <p>המשבץ עצמו חינם ופתוח. צריך מנוי Claude בתשלום כדי להריץ אותו (כל מנוי מתאים). שווה לבדוק אם לבית הספר או לרשות כבר יש חשבון לפני שרוכשים.</p></details>
+      <details><summary>מה עם קבצים לא מסודרים או שמות עם טעויות?</summary>
+        <p>המשבץ בנוי בדיוק בשביל זה. הוא מזהה שמות שנכתבו לא מדויק, שואל אתכם "מי זו נועה — כהן או לוי?", ומטפל בקבצים עם כמה גיליונות או שמות גנים לא אחידים.</p></details>
+      <details><summary>עשיתי שינוי ידני בלוח — אפשר לאזן מחדש?</summary>
+        <p>כן. שומרים את הלוח לקובץ, מחזירים אותו לשיחה וכותבים "תמשיך מכאן" — והמשבץ ממשיך מאיפה שהייתם, מאזן סביב השינויים שעשיתם.</p></details>
+      <details><summary>אפשר להשתמש ב-ChatGPT במקום?</summary>
+        <p>אפשר, אבל רק אם לארגון או לבית הספר יש מנוי ChatGPT עסקי (Business / Enterprise / Edu). בחשבון אישי רגיל זה עדיין לא זמין — ואז הדרך הפשוטה היא Claude, כמו למעלה.</p></details>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="text-align:center">
+    <h2 class="section-h">נתקעתם? כתבו לנו 💬</h2>
+    <p class="section-sub">אנחנו כאן לעזור. שלחו מייל ונחזור אליכם.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="mailto:yaniv@golan.name?subject=המשבץ%20—%20עזרה">כתבו לנו מייל</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    קלוד־למורה · המשבץ — כלי קוד־פתוח (MIT) למורות ולצוותי חינוך בישראל.<br>
+    מפתח/ת או סקרן/ית? <a href="https://github.com/yaniv-golan/claude-lamora">הקוד וההוראות הטכניות ב-GitHub</a>.
+  </div>
+</footer>
+
+<script>
+  function copyMk(){
+    const t="yaniv-golan/claude-lamora";
+    const done=()=>{const b=document.getElementById('mkbtn'); b.textContent="הועתק ✓"; setTimeout(()=>b.textContent="העתקה",1600);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done).catch(done);}
+    else{const r=document.createRange(); r.selectNode(document.getElementById('mk'));
+      getSelection().removeAllRanges(); getSelection().addRange(r); try{document.execCommand('copy');}catch(e){} done();}
+  }
+</script>
+</body>
+</html>

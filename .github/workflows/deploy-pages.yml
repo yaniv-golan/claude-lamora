@@ -23,7 +23,12 @@ jobs:
 
       - name: Build site
         run: |
-          mkdir -p _site/static
+          mkdir -p _site/static _site/images
+          # Friendly Hebrew landing page at the site root.
+          cp site/index.html _site/
+          # Screenshots + demo GIF referenced by the landing page.
+          cp docs/images/*.png docs/images/*.gif _site/images/
+          # One-click "Install in Claude Desktop" deep-link page.
           cp static/install-claude-desktop.html _site/static/
 
       - uses: actions/upload-pages-artifact@v3

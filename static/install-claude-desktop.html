@@ -25,11 +25,11 @@ a:hover { text-decoration: underline; }
 <p><a href="claude://claude.ai/customize/plugins/new?marketplace=https://github.com/yaniv-golan/claude-lamora&plugin=hameshabetz">לנסות שוב</a></p>
 <p>או להתקין ידנית: נכנסים ל-<a href="https://claude.ai">claude.ai</a>, לוחצים <strong>Customize</strong>, ואז <strong>Plugins</strong> → <strong>Add marketplace</strong>, ומקלידים <code>yaniv-golan/claude-lamora</code>.</p>
 </div>
-<p class="muted"><a href="https://github.com/yaniv-golan/claude-lamora">חזרה לעמוד של קלוד-למורה ב-GitHub</a></p>
+<p class="muted"><a href="../">חזרה לעמוד הבית של קלוד-למורה</a></p>
 </div>
 <script>
 var deepLink = "claude://claude.ai/customize/plugins/new?marketplace=https://github.com/yaniv-golan/claude-lamora&plugin=hameshabetz";
-var repo = "https://github.com/yaniv-golan/claude-lamora";
+var home = "https://yaniv-golan.github.io/claude-lamora/";
 
 // Try opening the deep link (opens the Claude desktop app if installed).
 window.location = deepLink;
@@ -42,10 +42,10 @@ setTimeout(function() {
   }
 }, 5000);
 
-// If the user returns to this tab (Claude opened, then they switched back), go to the repo.
+// If the user returns to this tab (Claude opened, then they switched back), go home.
 document.addEventListener("visibilitychange", function() {
   if (!document.hidden) {
-    setTimeout(function() { window.location = repo; }, 500);
+    setTimeout(function() { window.location = home; }, 500);
   }
 });
 </script>
